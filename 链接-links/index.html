@@ -481,5 +481,57 @@
     }());
 </script>
 
+<script>
+    
+    const cssPath = 'https:\/\/jjyywhf.github.io\/waifu\/waifu.css';
+    const tipsJsonPath = 'https:\/\/jjyywhf.github.io\/waifu\/waifu-tips.json';
+    
+    const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+
+    
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            } else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+                tag.async = true;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(new Error('Failed to load: ' + url));
+                document.head.appendChild(tag);
+            } else {
+                reject(new Error('Unknown resource type: ' + type));
+            }
+        });
+    }
+
+    
+    if (window.innerWidth >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2d_path + "live2d.min.js", "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js")
+        ]).then(() => {
+            
+            if (typeof initWidget === 'function') {
+                initWidget({
+                    waifuPath: tipsJsonPath,
+                    cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+                    tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+                });
+            } else {
+                console.error('initWidget is not available. Make sure waifu-tips.js was loaded correctly.');
+            }
+        }).catch(err => {
+            console.error('Failed to load waifu resources:', err);
+        });
+    }
+</script>
     </body>
 </html>
