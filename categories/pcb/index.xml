@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>PCB on ----jjyywhf----</title>
+        <link>https://jjyywhf.github.io/categories/pcb/</link>
+        <description>Recent content in PCB on ----jjyywhf----</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>jjyywhf</copyright>
+        <lastBuildDate>Tue, 12 May 2026 16:51:37 +0800</lastBuildDate><atom:link href="https://jjyywhf.github.io/categories/pcb/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PCB设计规范</title>
+        <link>https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</link>
+        <pubDate>Sat, 21 Mar 2026 16:36:21 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</guid>
+        <description>&lt;img src="https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp.png" alt="Featured image of post PCB设计规范" /&gt;&lt;h2 id=&#34;patr1-元器件介绍&#34;&gt;PATR1 元器件介绍
+&lt;/h2&gt;&lt;h3 id=&#34;一基本元件&#34;&gt;一、基本元件
+&lt;/h3&gt;&lt;h4 id=&#34;电阻&#34;&gt;电阻
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;元件方程：$ u=Ri $&lt;/li&gt;
+&lt;li&gt;作用：上拉下拉、减小电流&lt;/li&gt;
+&lt;li&gt;参数：阻值、功率&lt;/li&gt;
+&lt;li&gt;上拉下拉电阻：&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/666643013&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;这篇文章讲的很详细&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电容&#34;&gt;电容
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;元件方程：$ i=Cdu/dt $&lt;/li&gt;
+&lt;li&gt;作用一：滤波电容
+&lt;ul&gt;
+&lt;li&gt;原因：去除电源的纹波（直流电也有微小的电压波动，就像平静水面上的波纹，称为纹波）。&lt;/li&gt;
+&lt;li&gt;原理：电容对直流部分是开路，但是交流部分可以通过电容导入GND，从而使电压平稳。&lt;/li&gt;
+&lt;li&gt;放置位置：供电处。&lt;/li&gt;
+&lt;li&gt;经典用法实例：DCDC输入端1×10 µF陶瓷靠近开关芯片，再并联10–47 µF电解/固态做低频储能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;作用二：去耦电容（decoupling）
+&lt;ul&gt;
+&lt;li&gt;原因：IC瞬间启动或改变工作频率时，会在供电导线上产生较大的电流波动，这种波动反向传到到电源后，会造成电源的波动。即IC的波动耦合到了电源。&lt;/li&gt;
+&lt;li&gt;原理：电容有储能的作用，可以给IC提供瞬时电流，减弱了IC电流波动向电源的传导。&lt;/li&gt;
+&lt;li&gt;位置：芯片的供电引脚，并尽量靠近放置。&lt;/li&gt;
+&lt;li&gt;实例：芯片供电引脚旁边放一个0.1µF陶瓷电容，如果要求高可以大小电容并联，这样高低频都能滤波。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;作用三：旁路电容（bypass）
+&lt;ul&gt;
+&lt;li&gt;原因：如果电源受到了干扰，那么干扰信号会通过电源线传导到IC，如果干扰过强可能导致IC芯片不能正常工作。&lt;/li&gt;
+&lt;li&gt;原理：频率较高的干扰信号通过电容回流到地。&lt;/li&gt;
+&lt;li&gt;位置：芯片的供电引脚，并尽量靠近放置（跟去耦电容并联）。&lt;/li&gt;
+&lt;li&gt;实例：靠近电源的叫旁路电容，靠近IC的叫去耦电容。
+&lt;img src=&#34;https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image.png&#34;
+	width=&#34;1159&#34;
+	height=&#34;479&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image_hu_f39d580534e3eb16.png 480w, https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image_hu_c50f68269a3907bd.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;去耦电容和滤波电容&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;241&#34;
+		data-flex-basis=&#34;580px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;作用四：自举电容（这个比较难懂）
+&lt;ul&gt;
+&lt;li&gt;原因：给高侧开关提供高于母线电压的栅极驱动电源。&lt;/li&gt;
+&lt;li&gt;原理：&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/73283825&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;想懂可以看看这篇文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;应用：按照栅极驱动芯片的应用实例设计。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数：容值、耐压&lt;/li&gt;
+&lt;li&gt;类型：
+&lt;ul&gt;
+&lt;li&gt;贴片电容：最常用，但是耐压较低，封装常用0603，大一点的0805&lt;/li&gt;
+&lt;li&gt;铝电解电容：容量大，体积也大，用于低频滤波，电源滤波使用&lt;/li&gt;
+&lt;li&gt;钽电容：别用，太贵了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电感&#34;&gt;电感
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;元件方程：$ u=Ldi/dt $&lt;/li&gt;
+&lt;li&gt;作用：其实很少用，电源电路会用到（除此之外好像没用过）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;二半导体元件看模电教材&#34;&gt;二、半导体元件（看模电教材）
+&lt;/h3&gt;&lt;h4 id=&#34;二极管&#34;&gt;二极管
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;稳压二极管：稳压电路、过压保护、提供精准的参考电压&lt;/li&gt;
+&lt;li&gt;肖特基二极管：续流保护（在电机控制中很关键，否则会烧MOS）、低压防反接&lt;/li&gt;
+&lt;li&gt;发光二极管（LED）：指示灯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;晶体管&#34;&gt;晶体管
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;基本都直接用运算放大器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;mos管&#34;&gt;MOS管
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;场效应管（MOSFET）：做电机驱动的开关&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;三常用芯片&#34;&gt;三、常用芯片
+&lt;/h3&gt;&lt;h4 id=&#34;主控芯片&#34;&gt;主控芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;最常用的STM32系列：低端一点f103c8t6（一般来说算力也够），高端的f407VET6（主控用这个）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电源芯片&#34;&gt;电源芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;线性稳压器（LDO）：AMS系列&lt;/li&gt;
+&lt;li&gt;DC-DC电源芯片：TI的TPS5430系列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;通信接口芯片&#34;&gt;通信接口芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;CAN收发器：TI的SN65HVD230DR&lt;/li&gt;
+&lt;li&gt;USB转换芯片：主要转UART，用外界模块更多&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;栅极驱动芯片&#34;&gt;栅极驱动芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;绝对主流：TI的drv系列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电平转换器&#34;&gt;电平转换器
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;双向的：TI的TXS0104EPWR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;part2-pcb概述&#34;&gt;PART2 PCB概述
+&lt;/h2&gt;&lt;p&gt;PCB的全称是Printed Circuit Board，即印刷电路板，基本所有电子产品需要用到。
+与制作所有产品类似，制作一个PCB产品的完整流程主要包括设计、加工、测试。其中设计是由我们自己完成，加工的打板部分由工厂完成、焊接需要手工，测试也是我们自己测。
+因此我们硬件的工作基本是这三部分：画板子、焊接、测试。
+下面就挨个学习这些内容。&lt;/p&gt;
+&lt;h2 id=&#34;part3-画板子&#34;&gt;PART3 画板子
+&lt;/h2&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>线性代数 on ----jjyywhf----</title>
+        <link>https://jjyywhf.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</link>
+        <description>Recent content in 线性代数 on ----jjyywhf----</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>jjyywhf</copyright>
+        <lastBuildDate>Tue, 12 May 2026 16:51:37 +0800</lastBuildDate><atom:link href="https://jjyywhf.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>线性代数拓展（1）- 从线性方程组到广义逆矩阵</title>
+        <link>https://jjyywhf.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%8B%93%E5%B1%951-%E4%BB%8E%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E5%88%B0%E5%B9%BF%E4%B9%89%E9%80%86%E7%9F%A9%E9%98%B5/</link>
+        <pubDate>Mon, 12 Jan 2026 10:17:30 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%8B%93%E5%B1%951-%E4%BB%8E%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E5%88%B0%E5%B9%BF%E4%B9%89%E9%80%86%E7%9F%A9%E9%98%B5/</guid>
+        <description>
+&lt;h2 id=&#34;教材上线性方程组理论的残缺&#34;&gt;教材上线性方程组理论的残缺
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;我们知道对于任意一个线性方程组，它的解只能是三种情况，即无解、有唯一解、有无穷多解。
+
+对于这三种情况的判定，教材已经明确给出，只需考察系数矩阵与增广矩阵的秩，这里不再重复，以下讨论解
+的结构问题。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;有唯一解&#34;&gt;有唯一解
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;只需把它求出来，没什么讨论的。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;无解&#34;&gt;无解
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;这部分内容教材完全没有讲，但是无解并非没有研究价值。  
+
+在实际应用中，每一个方程都代表一个自然现象，这些现象在客观上是同时存在的。但是由于测量误差、数据
+传输中的种种问题，很可能出现错漏，这就导致了在数学上线性方程组不相容。事实上，这样的问题是很多见
+的，我们必须尽可能找到一个与真实情况最接近的解，这就需要用到“最小二乘法”。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;有无穷多解&#34;&gt;有无穷多解
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;教材介绍了如何求通解，但是同样不能完全满足实际应用的需求。
+
+实际应用中，一个方程代表一条信息，很多时候我们无法获得足够多的信息来给出完美准确的答案，也就是出
+现了有无穷多组解的情况。这时，我们必须利用有限的信息给出一个尽可能接近完美的答案，而不是笼统的给
+出所有可能的答案，这就需要用到“最小范数约束”。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;最小二乘法&#34;&gt;最小二乘法
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;这部分内容先总体地介绍最小二乘法，再介绍最小二乘法在线性方程组中的应用。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;最小二乘思想的提出&#34;&gt;最小二乘思想的提出
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;简单来说，提出最小二乘法的目的就是用数学模型最大限度的拟合实验数据。  
+所谓最大限度的拟合，就是让由每一个数据的个体误差累积而成的整体误差最小。每一个数据的误差很好定义，
+即实际值-理论预测值（残差），但是整体误差的定义方法却多种多样。  
+
+定义整体误差的第一个问题在于，个体误差有正有负，如果简单累加就会正负抵消，这样做不符合预期。  
+解决这个问题最先想到的办法是给个体误差加上绝对值，然后再累加。但是这样做也不可行，因为我们最终的
+目的是求整体误差的最小值，求最小值很可能要用到导数法，而绝对值函数不可导，下一步难以进行。  
+最终的解决办法是把个体误差平方再累加，即
+&lt;/code&gt;&lt;/pre&gt;
+$$
+L(y,f(x,w)) = \sum_{i=1}^{m} [y_i - f(x_i,w_i)]^2
+$$&lt;p&gt;
+其中，(x,y)是一对观测量，w为待定参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;这样定义以后，我们要做的就是找到一组w，使得L的值最小，下面讨论如何求。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;导数方法&#34;&gt;导数方法
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;不难发现L是一个关于w1,w2···的多元函数，可以用偏导数求最小值，但是此处不想讨论这种方法。一是因为我
+们有更简单的方法————矩阵方法，二是因为我们正在研究线性方程组的问题，矩阵方法显然更正宗。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;矩阵方法&#34;&gt;矩阵方法
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;也不难发现L是一个向量的长度（范数）的平方, 如果把线性方程组写成矩阵形式AX=b，那么就要求||AX-b||
+的最小值。
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

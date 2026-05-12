@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="PATR1 元器件介绍 一、基本元件 电阻 元件方程：$ u=Ri $ 作用：上拉下拉、减小电流 参数：阻值、功率 上拉下拉电阻：这篇文章讲的很详细 电容 元件方程：$ i=Cdu/dt $ 作用一：滤波电容 原因：去除电源的纹波（直流电也有微小的电压波动，就像平静水面上的波纹，称为纹波）。 原理：电容对直流部分是开路，但是交流部分可以通过电容导入GND，从而使电压平稳。 放置位置：供电处。 经典用法实例：DCDC输入端1×10 µF陶瓷靠近开关芯片，再并联10–47 µF电解/固态做低频储能。 作用二：去耦电容（decoupling） 原因：IC瞬间启动或改变工作频率时，会在供电导线上产生较大的电流波动，这种波动反向传到到电源后，会造成电源的波动。即IC的波动耦合到了电源。 原理：电容有储能的作用，可以给IC提供瞬时电流，减弱了IC电流波动向电源的传导。 位置：芯片的供电引脚，并尽量靠近放置。 实例：芯片供电引脚旁边放一个0.1µF陶瓷电容，如果要求高可以大小电容并联，这样高低频都能滤波。 作用三：旁路电容（bypass） 原因：如果电源受到了干扰，那么干扰信号会通过电源线传导到IC，如果干扰过强可能导致IC芯片不能正常工作。 原理：频率较高的干扰信号通过电容回流到地。 位置：芯片的供电引脚，并尽量靠近放置（跟去耦电容并联）。 实例：靠近电源的叫旁路电容，靠近IC的叫去耦电容。 作用四：自举电容（这个比较难懂） 原因：给高侧开关提供高于母线电压的栅极驱动电源。 原理：想懂可以看看这篇文章 应用：按照栅极驱动芯片的应用实例设计。 参数：容值、耐压 类型： 贴片电容：最常用，但是耐压较低，封装常用0603，大一点的0805 铝电解电容：容量大，体积也大，用于低频滤波，电源滤波使用 钽电容：别用，太贵了 电感 元件方程：$ u=Ldi/dt $ 作用：其实很少用，电源电路会用到（除此之外好像没用过） 二、半导体元件（看模电教材） 二极管 稳压二极管：稳压电路、过压保护、提供精准的参考电压 肖特基二极管：续流保护（在电机控制中很关键，否则会烧MOS）、低压防反接 发光二极管（LED）：指示灯 晶体管 基本都直接用运算放大器 MOS管 场效应管（MOSFET）：做电机驱动的开关 三、常用芯片 主控芯片 最常用的STM32系列：低端一点f103c8t6（一般来说算力也够），高端的f407VET6（主控用这个） 电源芯片 线性稳压器（LDO）：AMS系列 DC-DC电源芯片：TI的TPS5430系列 通信接口芯片 CAN收发器：TI的SN65HVD230DR USB转换芯片：主要转UART，用外界模块更多 栅极驱动芯片 绝对主流：TI的drv系列 电平转换器 双向的：TI的TXS0104EPWR PART2 PCB概述 PCB的全称是Printed Circuit Board，即印刷电路板，基本所有电子产品需要用到。 与制作所有产品类似，制作一个PCB产品的完整流程主要包括设计、加工、测试。其中设计是由我们自己完成，加工的打板部分由工厂完成、焊接需要手工，测试也是我们自己测。 因此我们硬件的工作基本是这三部分：画板子、焊接、测试。 下面就挨个学习这些内容。\n">
+<title>PCB设计规范</title>
+
+<link rel='canonical' href='https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/'>
+
+<link rel="stylesheet" href="/scss/style.min.1cafcc708d81b30ff8d68ba5f486da2531b475324b100b0757398b7e2086aa86.css"><meta property='og:title' content="PCB设计规范">
+<meta property='og:description' content="PATR1 元器件介绍 一、基本元件 电阻 元件方程：$ u=Ri $ 作用：上拉下拉、减小电流 参数：阻值、功率 上拉下拉电阻：这篇文章讲的很详细 电容 元件方程：$ i=Cdu/dt $ 作用一：滤波电容 原因：去除电源的纹波（直流电也有微小的电压波动，就像平静水面上的波纹，称为纹波）。 原理：电容对直流部分是开路，但是交流部分可以通过电容导入GND，从而使电压平稳。 放置位置：供电处。 经典用法实例：DCDC输入端1×10 µF陶瓷靠近开关芯片，再并联10–47 µF电解/固态做低频储能。 作用二：去耦电容（decoupling） 原因：IC瞬间启动或改变工作频率时，会在供电导线上产生较大的电流波动，这种波动反向传到到电源后，会造成电源的波动。即IC的波动耦合到了电源。 原理：电容有储能的作用，可以给IC提供瞬时电流，减弱了IC电流波动向电源的传导。 位置：芯片的供电引脚，并尽量靠近放置。 实例：芯片供电引脚旁边放一个0.1µF陶瓷电容，如果要求高可以大小电容并联，这样高低频都能滤波。 作用三：旁路电容（bypass） 原因：如果电源受到了干扰，那么干扰信号会通过电源线传导到IC，如果干扰过强可能导致IC芯片不能正常工作。 原理：频率较高的干扰信号通过电容回流到地。 位置：芯片的供电引脚，并尽量靠近放置（跟去耦电容并联）。 实例：靠近电源的叫旁路电容，靠近IC的叫去耦电容。 作用四：自举电容（这个比较难懂） 原因：给高侧开关提供高于母线电压的栅极驱动电源。 原理：想懂可以看看这篇文章 应用：按照栅极驱动芯片的应用实例设计。 参数：容值、耐压 类型： 贴片电容：最常用，但是耐压较低，封装常用0603，大一点的0805 铝电解电容：容量大，体积也大，用于低频滤波，电源滤波使用 钽电容：别用，太贵了 电感 元件方程：$ u=Ldi/dt $ 作用：其实很少用，电源电路会用到（除此之外好像没用过） 二、半导体元件（看模电教材） 二极管 稳压二极管：稳压电路、过压保护、提供精准的参考电压 肖特基二极管：续流保护（在电机控制中很关键，否则会烧MOS）、低压防反接 发光二极管（LED）：指示灯 晶体管 基本都直接用运算放大器 MOS管 场效应管（MOSFET）：做电机驱动的开关 三、常用芯片 主控芯片 最常用的STM32系列：低端一点f103c8t6（一般来说算力也够），高端的f407VET6（主控用这个） 电源芯片 线性稳压器（LDO）：AMS系列 DC-DC电源芯片：TI的TPS5430系列 通信接口芯片 CAN收发器：TI的SN65HVD230DR USB转换芯片：主要转UART，用外界模块更多 栅极驱动芯片 绝对主流：TI的drv系列 电平转换器 双向的：TI的TXS0104EPWR PART2 PCB概述 PCB的全称是Printed Circuit Board，即印刷电路板，基本所有电子产品需要用到。 与制作所有产品类似，制作一个PCB产品的完整流程主要包括设计、加工、测试。其中设计是由我们自己完成，加工的打板部分由工厂完成、焊接需要手工，测试也是我们自己测。 因此我们硬件的工作基本是这三部分：画板子、焊接、测试。 下面就挨个学习这些内容。\n">
+<meta property='og:url' content='https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/'>
+<meta property='og:site_name' content='----jjyywhf----'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-03-21T16:36:21&#43;08:00'/><meta property='article:modified_time' content='2026-05-12T16:51:37&#43;08:00'/><meta property='og:image' content='https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp.png' />
+<meta name="twitter:title" content="PCB设计规范">
+<meta name="twitter:description" content="PATR1 元器件介绍 一、基本元件 电阻 元件方程：$ u=Ri $ 作用：上拉下拉、减小电流 参数：阻值、功率 上拉下拉电阻：这篇文章讲的很详细 电容 元件方程：$ i=Cdu/dt $ 作用一：滤波电容 原因：去除电源的纹波（直流电也有微小的电压波动，就像平静水面上的波纹，称为纹波）。 原理：电容对直流部分是开路，但是交流部分可以通过电容导入GND，从而使电压平稳。 放置位置：供电处。 经典用法实例：DCDC输入端1×10 µF陶瓷靠近开关芯片，再并联10–47 µF电解/固态做低频储能。 作用二：去耦电容（decoupling） 原因：IC瞬间启动或改变工作频率时，会在供电导线上产生较大的电流波动，这种波动反向传到到电源后，会造成电源的波动。即IC的波动耦合到了电源。 原理：电容有储能的作用，可以给IC提供瞬时电流，减弱了IC电流波动向电源的传导。 位置：芯片的供电引脚，并尽量靠近放置。 实例：芯片供电引脚旁边放一个0.1µF陶瓷电容，如果要求高可以大小电容并联，这样高低频都能滤波。 作用三：旁路电容（bypass） 原因：如果电源受到了干扰，那么干扰信号会通过电源线传导到IC，如果干扰过强可能导致IC芯片不能正常工作。 原理：频率较高的干扰信号通过电容回流到地。 位置：芯片的供电引脚，并尽量靠近放置（跟去耦电容并联）。 实例：靠近电源的叫旁路电容，靠近IC的叫去耦电容。 作用四：自举电容（这个比较难懂） 原因：给高侧开关提供高于母线电压的栅极驱动电源。 原理：想懂可以看看这篇文章 应用：按照栅极驱动芯片的应用实例设计。 参数：容值、耐压 类型： 贴片电容：最常用，但是耐压较低，封装常用0603，大一点的0805 铝电解电容：容量大，体积也大，用于低频滤波，电源滤波使用 钽电容：别用，太贵了 电感 元件方程：$ u=Ldi/dt $ 作用：其实很少用，电源电路会用到（除此之外好像没用过） 二、半导体元件（看模电教材） 二极管 稳压二极管：稳压电路、过压保护、提供精准的参考电压 肖特基二极管：续流保护（在电机控制中很关键，否则会烧MOS）、低压防反接 发光二极管（LED）：指示灯 晶体管 基本都直接用运算放大器 MOS管 场效应管（MOSFET）：做电机驱动的开关 三、常用芯片 主控芯片 最常用的STM32系列：低端一点f103c8t6（一般来说算力也够），高端的f407VET6（主控用这个） 电源芯片 线性稳压器（LDO）：AMS系列 DC-DC电源芯片：TI的TPS5430系列 通信接口芯片 CAN收发器：TI的SN65HVD230DR USB转换芯片：主要转UART，用外界模块更多 栅极驱动芯片 绝对主流：TI的drv系列 电平转换器 双向的：TI的TXS0104EPWR PART2 PCB概述 PCB的全称是Printed Circuit Board，即印刷电路板，基本所有电子产品需要用到。 与制作所有产品类似，制作一个PCB产品的完整流程主要包括设计、加工、测试。其中设计是由我们自己完成，加工的打板部分由工厂完成、焊接需要手工，测试也是我们自己测。 因此我们硬件的工作基本是这三部分：画板子、焊接、测试。 下面就挨个学习这些内容。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_beb7ada01838775b.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">----jjyywhf----</a></h1>
+            <h2 class="site-description">欢迎来到我的网站！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/jjyywhf'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页 | Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>分类 | Categories</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索 | Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5-links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接 | Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#patr1-元器件介绍">PATR1 元器件介绍</a>
+      <ol>
+        <li><a href="#一基本元件">一、基本元件</a>
+          <ol>
+            <li><a href="#电阻">电阻</a></li>
+            <li><a href="#电容">电容</a></li>
+            <li><a href="#电感">电感</a></li>
+          </ol>
+        </li>
+        <li><a href="#二半导体元件看模电教材">二、半导体元件（看模电教材）</a>
+          <ol>
+            <li><a href="#二极管">二极管</a></li>
+            <li><a href="#晶体管">晶体管</a></li>
+            <li><a href="#mos管">MOS管</a></li>
+          </ol>
+        </li>
+        <li><a href="#三常用芯片">三、常用芯片</a>
+          <ol>
+            <li><a href="#主控芯片">主控芯片</a></li>
+            <li><a href="#电源芯片">电源芯片</a></li>
+            <li><a href="#通信接口芯片">通信接口芯片</a></li>
+            <li><a href="#栅极驱动芯片">栅极驱动芯片</a></li>
+            <li><a href="#电平转换器">电平转换器</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#part2-pcb概述">PART2 PCB概述</a></li>
+    <li><a href="#part3-画板子">PART3 画板子</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
+                <img src="/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp_hu_367074e573f10d9a.png"
+                        srcset="/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp_hu_367074e573f10d9a.png 800w, /p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp_hu_18818d963fae3782.png 1600w"
+                        width="800" 
+                        height="516" 
+                        loading="lazy"
+                        alt="Featured image of post PCB设计规范" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/pcb/" >
+                PCB
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">PCB设计规范</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-21T16:36:21&#43;08:00'>2026-03-21</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="patr1-元器件介绍">PATR1 元器件介绍
+</h2><h3 id="一基本元件">一、基本元件
+</h3><h4 id="电阻">电阻
+</h4><ul>
+<li>元件方程：$ u=Ri $</li>
+<li>作用：上拉下拉、减小电流</li>
+<li>参数：阻值、功率</li>
+<li>上拉下拉电阻：<a class="link" href="https://zhuanlan.zhihu.com/p/666643013"  target="_blank" rel="noopener"
+    >这篇文章讲的很详细</a></li>
+</ul>
+<h4 id="电容">电容
+</h4><ul>
+<li>元件方程：$ i=Cdu/dt $</li>
+<li>作用一：滤波电容
+<ul>
+<li>原因：去除电源的纹波（直流电也有微小的电压波动，就像平静水面上的波纹，称为纹波）。</li>
+<li>原理：电容对直流部分是开路，但是交流部分可以通过电容导入GND，从而使电压平稳。</li>
+<li>放置位置：供电处。</li>
+<li>经典用法实例：DCDC输入端1×10 µF陶瓷靠近开关芯片，再并联10–47 µF电解/固态做低频储能。</li>
+</ul>
+</li>
+<li>作用二：去耦电容（decoupling）
+<ul>
+<li>原因：IC瞬间启动或改变工作频率时，会在供电导线上产生较大的电流波动，这种波动反向传到到电源后，会造成电源的波动。即IC的波动耦合到了电源。</li>
+<li>原理：电容有储能的作用，可以给IC提供瞬时电流，减弱了IC电流波动向电源的传导。</li>
+<li>位置：芯片的供电引脚，并尽量靠近放置。</li>
+<li>实例：芯片供电引脚旁边放一个0.1µF陶瓷电容，如果要求高可以大小电容并联，这样高低频都能滤波。</li>
+</ul>
+</li>
+<li>作用三：旁路电容（bypass）
+<ul>
+<li>原因：如果电源受到了干扰，那么干扰信号会通过电源线传导到IC，如果干扰过强可能导致IC芯片不能正常工作。</li>
+<li>原理：频率较高的干扰信号通过电容回流到地。</li>
+<li>位置：芯片的供电引脚，并尽量靠近放置（跟去耦电容并联）。</li>
+<li>实例：靠近电源的叫旁路电容，靠近IC的叫去耦电容。
+<img src="/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image.png"
+	width="1159"
+	height="479"
+	srcset="/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image_hu_f39d580534e3eb16.png 480w, /p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image_hu_c50f68269a3907bd.png 1024w"
+	loading="lazy"
+	
+		alt="去耦电容和滤波电容"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="241"
+		data-flex-basis="580px"
+	
+></li>
+</ul>
+</li>
+<li>作用四：自举电容（这个比较难懂）
+<ul>
+<li>原因：给高侧开关提供高于母线电压的栅极驱动电源。</li>
+<li>原理：<a class="link" href="https://zhuanlan.zhihu.com/p/73283825"  target="_blank" rel="noopener"
+    >想懂可以看看这篇文章</a></li>
+<li>应用：按照栅极驱动芯片的应用实例设计。</li>
+</ul>
+</li>
+<li>参数：容值、耐压</li>
+<li>类型：
+<ul>
+<li>贴片电容：最常用，但是耐压较低，封装常用0603，大一点的0805</li>
+<li>铝电解电容：容量大，体积也大，用于低频滤波，电源滤波使用</li>
+<li>钽电容：别用，太贵了</li>
+</ul>
+</li>
+</ul>
+<h4 id="电感">电感
+</h4><ul>
+<li>元件方程：$ u=Ldi/dt $</li>
+<li>作用：其实很少用，电源电路会用到（除此之外好像没用过）</li>
+</ul>
+<h3 id="二半导体元件看模电教材">二、半导体元件（看模电教材）
+</h3><h4 id="二极管">二极管
+</h4><ul>
+<li>稳压二极管：稳压电路、过压保护、提供精准的参考电压</li>
+<li>肖特基二极管：续流保护（在电机控制中很关键，否则会烧MOS）、低压防反接</li>
+<li>发光二极管（LED）：指示灯</li>
+</ul>
+<h4 id="晶体管">晶体管
+</h4><ul>
+<li>基本都直接用运算放大器</li>
+</ul>
+<h4 id="mos管">MOS管
+</h4><ul>
+<li>场效应管（MOSFET）：做电机驱动的开关</li>
+</ul>
+<h3 id="三常用芯片">三、常用芯片
+</h3><h4 id="主控芯片">主控芯片
+</h4><ul>
+<li>最常用的STM32系列：低端一点f103c8t6（一般来说算力也够），高端的f407VET6（主控用这个）</li>
+</ul>
+<h4 id="电源芯片">电源芯片
+</h4><ul>
+<li>线性稳压器（LDO）：AMS系列</li>
+<li>DC-DC电源芯片：TI的TPS5430系列</li>
+</ul>
+<h4 id="通信接口芯片">通信接口芯片
+</h4><ul>
+<li>CAN收发器：TI的SN65HVD230DR</li>
+<li>USB转换芯片：主要转UART，用外界模块更多</li>
+</ul>
+<h4 id="栅极驱动芯片">栅极驱动芯片
+</h4><ul>
+<li>绝对主流：TI的drv系列</li>
+</ul>
+<h4 id="电平转换器">电平转换器
+</h4><ul>
+<li>双向的：TI的TXS0104EPWR</li>
+</ul>
+<h2 id="part2-pcb概述">PART2 PCB概述
+</h2><p>PCB的全称是Printed Circuit Board，即印刷电路板，基本所有电子产品需要用到。
+与制作所有产品类似，制作一个PCB产品的完整流程主要包括设计、加工、测试。其中设计是由我们自己完成，加工的打板部分由工厂完成、焊接需要手工，测试也是我们自己测。
+因此我们硬件的工作基本是这三部分：画板子、焊接、测试。
+下面就挨个学习这些内容。</p>
+<h2 id="part3-画板子">PART3 画板子
+</h2>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 May 12, 2026 16:51 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 jjyywhf
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.33.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<script src=https://jjyywhf.github.io/background/sakura.js></script>
+<script defer src="https://cn.vercount.one/js"></script>
+<script>
+    
+    const cssPath = 'https:\/\/jjyywhf.github.io\/waifu\/waifu.css';
+    const tipsJsonPath = 'https:\/\/jjyywhf.github.io\/waifu\/waifu-tips.json';
+    
+    const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
+
+    
+    function loadExternalResource(url, type) {
+        return new Promise((resolve, reject) => {
+            let tag;
+            if (type === "css") {
+                tag = document.createElement("link");
+                tag.rel = "stylesheet";
+                tag.href = url;
+            } else if (type === "js") {
+                tag = document.createElement("script");
+                tag.src = url;
+                tag.async = true;
+            }
+            if (tag) {
+                tag.onload = () => resolve(url);
+                tag.onerror = () => reject(new Error('Failed to load: ' + url));
+                document.head.appendChild(tag);
+            } else {
+                reject(new Error('Unknown resource type: ' + type));
+            }
+        });
+    }
+
+    
+    if (window.innerWidth >= 768) {
+        Promise.all([
+            loadExternalResource(cssPath, "css"),
+            loadExternalResource(live2d_path + "live2d.min.js", "js"),
+            loadExternalResource(live2d_path + "waifu-tips.js", "js")
+        ]).then(() => {
+            
+            if (typeof initWidget === 'function') {
+                initWidget({
+                    waifuPath: tipsJsonPath,
+                    cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+                    tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
+                });
+            } else {
+                console.error('initWidget is not available. Make sure waifu-tips.js was loaded correctly.');
+            }
+        }).catch(err => {
+            console.error('Failed to load waifu resources:', err);
+        });
+    }
+</script>
+
+<style>
+     
+    @font-face {
+    font-family: 'MapleMono-NF-CN';
+    src: url('https://jjyywhf.github.io/font/Written-Regular.ttf') format('truetype');
+    }
+  
+     
+    :root {
+      --base-font-family: 'MapleMono-NF-CN', sans-serif;
+      --code-font-family: 'MapleMono-NF-CN', consolas, monospace;
+    }
+  </style>
+
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://jjyywhf.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css" integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js" integrity="sha384-2B8pfmZZ6JlVoScJm/5hQfNS2TI/6hPqDZInzzPc8oHpN5SgeNOf4LzREO6p5YtZ" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+        
+    </body>
+</html>

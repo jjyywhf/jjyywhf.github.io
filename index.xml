@@ -1,13 +1,196 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>王浩沣-jjyywhf</title>
+        <title>----jjyywhf----</title>
         <link>https://jjyywhf.github.io/</link>
-        <description>Recent content on 王浩沣-jjyywhf</description>
+        <description>Recent content on ----jjyywhf----</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <copyright>jjyywhf</copyright>
-        <lastBuildDate>Mon, 12 Jan 2026 10:17:30 +0800</lastBuildDate><atom:link href="https://jjyywhf.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <copyright>jjyywhf</copyright><atom:link href="https://jjyywhf.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>自研电调</title>
+        <link>https://jjyywhf.github.io/p/%E8%87%AA%E7%A0%94%E7%94%B5%E8%B0%83/</link>
+        <pubDate>Tue, 28 Apr 2026 16:36:21 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/%E8%87%AA%E7%A0%94%E7%94%B5%E8%B0%83/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>PCB设计规范</title>
+        <link>https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</link>
+        <pubDate>Sat, 21 Mar 2026 16:36:21 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</guid>
+        <description>&lt;img src="https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/ppp.png" alt="Featured image of post PCB设计规范" /&gt;&lt;h2 id=&#34;patr1-元器件介绍&#34;&gt;PATR1 元器件介绍
+&lt;/h2&gt;&lt;h3 id=&#34;一基本元件&#34;&gt;一、基本元件
+&lt;/h3&gt;&lt;h4 id=&#34;电阻&#34;&gt;电阻
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;元件方程：$ u=Ri $&lt;/li&gt;
+&lt;li&gt;作用：上拉下拉、减小电流&lt;/li&gt;
+&lt;li&gt;参数：阻值、功率&lt;/li&gt;
+&lt;li&gt;上拉下拉电阻：&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/666643013&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;这篇文章讲的很详细&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电容&#34;&gt;电容
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;元件方程：$ i=Cdu/dt $&lt;/li&gt;
+&lt;li&gt;作用一：滤波电容
+&lt;ul&gt;
+&lt;li&gt;原因：去除电源的纹波（直流电也有微小的电压波动，就像平静水面上的波纹，称为纹波）。&lt;/li&gt;
+&lt;li&gt;原理：电容对直流部分是开路，但是交流部分可以通过电容导入GND，从而使电压平稳。&lt;/li&gt;
+&lt;li&gt;放置位置：供电处。&lt;/li&gt;
+&lt;li&gt;经典用法实例：DCDC输入端1×10 µF陶瓷靠近开关芯片，再并联10–47 µF电解/固态做低频储能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;作用二：去耦电容（decoupling）
+&lt;ul&gt;
+&lt;li&gt;原因：IC瞬间启动或改变工作频率时，会在供电导线上产生较大的电流波动，这种波动反向传到到电源后，会造成电源的波动。即IC的波动耦合到了电源。&lt;/li&gt;
+&lt;li&gt;原理：电容有储能的作用，可以给IC提供瞬时电流，减弱了IC电流波动向电源的传导。&lt;/li&gt;
+&lt;li&gt;位置：芯片的供电引脚，并尽量靠近放置。&lt;/li&gt;
+&lt;li&gt;实例：芯片供电引脚旁边放一个0.1µF陶瓷电容，如果要求高可以大小电容并联，这样高低频都能滤波。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;作用三：旁路电容（bypass）
+&lt;ul&gt;
+&lt;li&gt;原因：如果电源受到了干扰，那么干扰信号会通过电源线传导到IC，如果干扰过强可能导致IC芯片不能正常工作。&lt;/li&gt;
+&lt;li&gt;原理：频率较高的干扰信号通过电容回流到地。&lt;/li&gt;
+&lt;li&gt;位置：芯片的供电引脚，并尽量靠近放置（跟去耦电容并联）。&lt;/li&gt;
+&lt;li&gt;实例：靠近电源的叫旁路电容，靠近IC的叫去耦电容。
+&lt;img src=&#34;https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image.png&#34;
+	width=&#34;1159&#34;
+	height=&#34;479&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image_hu_f39d580534e3eb16.png 480w, https://jjyywhf.github.io/p/pcb%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/image_hu_c50f68269a3907bd.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;去耦电容和滤波电容&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;241&#34;
+		data-flex-basis=&#34;580px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;作用四：自举电容（这个比较难懂）
+&lt;ul&gt;
+&lt;li&gt;原因：给高侧开关提供高于母线电压的栅极驱动电源。&lt;/li&gt;
+&lt;li&gt;原理：&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/73283825&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;想懂可以看看这篇文章&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;应用：按照栅极驱动芯片的应用实例设计。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数：容值、耐压&lt;/li&gt;
+&lt;li&gt;类型：
+&lt;ul&gt;
+&lt;li&gt;贴片电容：最常用，但是耐压较低，封装常用0603，大一点的0805&lt;/li&gt;
+&lt;li&gt;铝电解电容：容量大，体积也大，用于低频滤波，电源滤波使用&lt;/li&gt;
+&lt;li&gt;钽电容：别用，太贵了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电感&#34;&gt;电感
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;元件方程：$ u=Ldi/dt $&lt;/li&gt;
+&lt;li&gt;作用：其实很少用，电源电路会用到（除此之外好像没用过）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;二半导体元件看模电教材&#34;&gt;二、半导体元件（看模电教材）
+&lt;/h3&gt;&lt;h4 id=&#34;二极管&#34;&gt;二极管
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;稳压二极管：稳压电路、过压保护、提供精准的参考电压&lt;/li&gt;
+&lt;li&gt;肖特基二极管：续流保护（在电机控制中很关键，否则会烧MOS）、低压防反接&lt;/li&gt;
+&lt;li&gt;发光二极管（LED）：指示灯&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;晶体管&#34;&gt;晶体管
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;基本都直接用运算放大器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;mos管&#34;&gt;MOS管
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;场效应管（MOSFET）：做电机驱动的开关&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;三常用芯片&#34;&gt;三、常用芯片
+&lt;/h3&gt;&lt;h4 id=&#34;主控芯片&#34;&gt;主控芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;最常用的STM32系列：低端一点f103c8t6（一般来说算力也够），高端的f407VET6（主控用这个）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电源芯片&#34;&gt;电源芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;线性稳压器（LDO）：AMS系列&lt;/li&gt;
+&lt;li&gt;DC-DC电源芯片：TI的TPS5430系列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;通信接口芯片&#34;&gt;通信接口芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;CAN收发器：TI的SN65HVD230DR&lt;/li&gt;
+&lt;li&gt;USB转换芯片：主要转UART，用外界模块更多&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;栅极驱动芯片&#34;&gt;栅极驱动芯片
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;绝对主流：TI的drv系列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;电平转换器&#34;&gt;电平转换器
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;双向的：TI的TXS0104EPWR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;part2-pcb概述&#34;&gt;PART2 PCB概述
+&lt;/h2&gt;&lt;p&gt;PCB的全称是Printed Circuit Board，即印刷电路板，基本所有电子产品需要用到。
+与制作所有产品类似，制作一个PCB产品的完整流程主要包括设计、加工、测试。其中设计是由我们自己完成，加工的打板部分由工厂完成、焊接需要手工，测试也是我们自己测。
+因此我们硬件的工作基本是这三部分：画板子、焊接、测试。
+下面就挨个学习这些内容。&lt;/p&gt;
+&lt;h2 id=&#34;part3-画板子&#34;&gt;PART3 画板子
+&lt;/h2&gt;</description>
+        </item>
+        <item>
+        <title>2026年“弘理杯”数学建模竞赛</title>
+        <link>https://jjyywhf.github.io/p/2026%E5%B9%B4%E5%BC%98%E7%90%86%E6%9D%AF%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AB%9E%E8%B5%9B/</link>
+        <pubDate>Sat, 24 Jan 2026 10:17:30 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/2026%E5%B9%B4%E5%BC%98%E7%90%86%E6%9D%AF%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AB%9E%E8%B5%9B/</guid>
+        <description>&lt;p&gt;本文是我打完数学建模竞赛之后的收获和感悟，这也是我第一次做数学建模。&lt;/p&gt;
+&lt;h2 id=&#34;经验总结&#34;&gt;经验总结
+&lt;/h2&gt;&lt;h3 id=&#34;第一步审题&#34;&gt;第一步：审题
+&lt;/h3&gt;&lt;!-- &lt;iframe src=&#34;localhost:1313/static/files/A.pdf&#34; width=&#34;100%&#34; height=&#34;600&#34;&gt;&lt;/iframe&gt; --&gt;
+&lt;p&gt;明确题意，最重要的是要想到这个题目的&lt;strong&gt;实际工业场景&lt;/strong&gt;。比如这道题，要设想出振镜是安装在平台上的，平台
+带着振镜移动，平台要运动到某些地方停下来，然后振镜就开始加工，加工完这个位点平台继续移动到下一个
+停靠点，依次完成整个图案的加工。需要完成的任务就是选择停靠点并规划路径，使得加工总时间最短。&lt;/p&gt;
+&lt;p&gt;设想出场景之后，模型假设的问题就基本解决了。一些物理参数跟着感觉走就行，比如平台、振镜、图案的大
+小关系，移动速度的关系。另外，当你把整个流程想清楚以后，哪些地方需要计算时间也就清楚了，本题就包
+括平台、振镜的移动时间和振镜的加工时间。最后，为了让模型简单一点，比较麻烦且影响不大的因素不用考
+虑，比如启停的加速减速过程，平台的旋转太麻烦了也不考虑，写到&lt;strong&gt;模型改进&lt;/strong&gt;里面。&lt;/p&gt;
+&lt;p&gt;一个投机取巧的办法，对于麻烦的东西，模型假设里面忽略掉，写到模型改进里，反正也不用你真改进^_^&lt;/p&gt;
+&lt;h3 id=&#34;第二步构思&#34;&gt;第二步：构思
+&lt;/h3&gt;&lt;p&gt;有一个好的想法是比知道如何实现更重要的问题，毕竟你可以把想法喂给AI，让它帮你写代码实现。
+那么问题又来了，这个想法从哪来呢？我觉得有两方面来源。&lt;/p&gt;
+&lt;p&gt;一方面，可以问AI有没有&lt;strong&gt;现成的&lt;/strong&gt;方法解决这个问题。事实上先辈们遇到过许许多多的工程难题，大概率你遇到
+的这个问题早就有人遇到过了，并且给出了解决方法，遗憾的是你并不知道。这时候问问AI是很划算的，不要
+重新造轮子，要学会站在巨人的肩膀上。比如在若干停靠点之间规划最短路径的问题其实就是不用回到出发点
+的旅行商（TSP）问题，已经有很多很强大的算法了，直接拿来。&lt;/p&gt;
+&lt;p&gt;另一方面，如果没有现成的方法，就要充分发挥&lt;strong&gt;想象力&lt;/strong&gt;。我感觉这种能力跟做数学题是完全不一样的，更多
+来源于生活经验和奇思妙想。当然问问AI也是不错的找灵感的方法。比如我解决如何用尽量少的方格覆盖图案
+这个问题时就先问了一下GPT，它给出贪心算法、网格化、聚类法等等，然后我就依次研究了这几种方法，最
+终选择贪心算法+筛选的组合方法。值得一提的是网格法我自己也想到了，只不过我用来解决振镜的问题了。
+我自认为这个第二次筛选是整个模型中最成功的地方，是我在处理协同问题时不经意间想到的。&lt;/p&gt;
+&lt;p&gt;还要一个很重要的事情，不要想过于复杂的方法，很多时候想法很好，实现不了。简单、稳定、相对高效的
+方法在工程中足够了。&lt;/p&gt;
+&lt;h3 id=&#34;第三步实现&#34;&gt;第三步：实现
+&lt;/h3&gt;&lt;p&gt;我只能说，一个有追问功能的强大的AI是神一般的队友，这里墙裂推荐ChatGPT！&lt;/p&gt;
+&lt;p&gt;你要做的所有事情，就是把想法告诉它(说清楚输入输出)，让它生成完整可运行的代码，结果不满意就让它改，
+注意加上一句话“在不改变程序原有功能的基础上···”，要不然可能改来改去少了个功能。如果有报错，也是
+直接喂给它，按它的走改两下总能好使。&lt;/p&gt;
+&lt;p&gt;需要补充的是，如果你觉得这些知识很有用，建议顺便学一下，比如我就了解了一下opencv和图像处理。&lt;/p&gt;
+&lt;h3 id=&#34;第四步检验&#34;&gt;第四步：检验
+&lt;/h3&gt;&lt;p&gt;首先要明确检验模型的标准，比如这个问题，加工图案的完整度和完成时间是最关键的。可以把你想要看的
+成果告诉AI，让它写代码，在matlab里跑一遍就行了。&lt;/p&gt;
+&lt;h3 id=&#34;第五步写论文&#34;&gt;第五步：写论文
+&lt;/h3&gt;&lt;p&gt;我的文字表达能力的确不怎么样，但是为了让论文更有可读性，我觉得下面三个方法很有用。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;层次要分清楚。大小标题加上，一步一步按顺序说。&lt;/li&gt;
+&lt;li&gt;既然说不好，就多加入可视化图片，以图代证。&lt;/li&gt;
+&lt;li&gt;最后总结画个流程图，输入输出一目了然。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最后悔的一点，本来想到了但是忘加了，最后一天想起来了但是没时间改了（空行程跳转时间）&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>线性代数拓展（1）- 从线性方程组到广义逆矩阵</title>
         <link>https://jjyywhf.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%8B%93%E5%B1%951-%E4%BB%8E%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E5%88%B0%E5%B9%BF%E4%B9%89%E9%80%86%E7%9F%A9%E9%98%B5/</link>
         <pubDate>Mon, 12 Jan 2026 10:17:30 +0800</pubDate>
@@ -56,9 +239,27 @@ $$&lt;p&gt;
 其中，(x,y)是一对观测量，w为待定参数。&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;这样定义以后，我们要做的就是找到一组w，使得L的值最小，下面讨论如何求。
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;导数方法求最小值&#34;&gt;导数方法求最小值
-&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;不难发现L是一个关于w1,w2···的多元函数，需要用偏导数求最小值
+&lt;h3 id=&#34;导数方法&#34;&gt;导数方法
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;不难发现L是一个关于w1,w2···的多元函数，可以用偏导数求最小值，但是此处不想讨论这种方法。一是因为我
+们有更简单的方法————矩阵方法，二是因为我们正在研究线性方程组的问题，矩阵方法显然更正宗。
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;矩阵方法&#34;&gt;矩阵方法
+&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;也不难发现L是一个向量的长度（范数）的平方, 如果把线性方程组写成矩阵形式AX=b，那么就要求||AX-b||
+的最小值。
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        </item>
+        <item>
+        <title>自动部署博客的命令</title>
+        <link>https://jjyywhf.github.io/p/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Sun, 11 Jan 2026 08:54:21 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;p&gt;1 在本地预览：&lt;em&gt;hugo server -D&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;2 新建文章：&lt;em&gt;hugo new content post/题目/文件名.md&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;3 添加到暂存区：&lt;em&gt;git add .&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;4 提交到本地仓库：&lt;em&gt;git commit -m &amp;ldquo;更改说明&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;5 提交到远程仓库：&lt;em&gt;git push&lt;/em&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -78,7 +279,7 @@ $$&lt;p&gt;
 </description>
         </item>
         <item>
-        <title>分类 | Classify</title>
+        <title>分类 | Categories</title>
         <link>https://jjyywhf.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
@@ -91,7 +292,7 @@ $$&lt;p&gt;
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
         <guid>https://jjyywhf.github.io/p/markdown-syntax-guide/</guid>
-        <description>&lt;img src="https://jjyywhf.github.io/p/markdown-syntax-guide/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
+        <description>&lt;img src="https://jjyywhf.github.io/p/markdown-syntax-guide/pawel.jpg" alt="Featured image of post Markdown Syntax Guide" /&gt;&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
 &lt;h2 id=&#34;headings&#34;&gt;Headings
 &lt;/h2&gt;&lt;p&gt;The following HTML &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt;—&lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; elements represent six levels of section headings. &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; is the highest section level while &lt;code&gt;&amp;lt;h6&amp;gt;&lt;/code&gt; is the lowest.&lt;/p&gt;
 &lt;h1 id=&#34;h1&#34;&gt;H1

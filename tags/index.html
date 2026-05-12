@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://jjyywhf.github.io/tags/'>
 
-<link rel="stylesheet" href="/scss/style.min.833d6eed45de56f48306bf57268d5b8cdfc8a60e8e7bdc99810464fcd033f7c6.css"><meta property='og:title' content="Tags">
+<link rel="stylesheet" href="/scss/style.min.1cafcc708d81b30ff8d68ba5f486da2531b475324b100b0757398b7e2086aa86.css"><meta property='og:title' content="Tags">
 <meta property='og:description' content="欢迎来到我的网站！">
 <meta property='og:url' content='https://jjyywhf.github.io/tags/'>
-<meta property='og:site_name' content='王浩沣-jjyywhf'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-01-12T10:17:30&#43;08:00 '/>
+<meta property='og:site_name' content='----jjyywhf----'>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-05-12T16:51:37&#43;08:00 '/>
 <meta name="twitter:title" content="Tags">
 <meta name="twitter:description" content="欢迎来到我的网站！"><link rel="alternate" type="application/rss&#43;xml" href="https://jjyywhf.github.io/tags/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -67,7 +67,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">王浩沣-jjyywhf</a></h1>
+            <h1 class="site-name"><a href="/">----jjyywhf----</a></h1>
             <h2 class="site-description">欢迎来到我的网站！</h2>
         </div>
     </header><ol class="menu-social">
@@ -151,7 +151,7 @@
 
 
                 
-                <span>分类 | Classify</span>
+                <span>分类 | Categories</span>
             </a>
         </li>
         
@@ -299,16 +299,18 @@
     </a>
 </article>
         
-    </section><nav class="pagination" role="navigation" aria-label="pagination"><a class="page-link disabled"aria-label="Previous page"aria-disabled="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
-    </a><a class="page-link current" aria-label="Page 1"aria-current="page">
-        1
-    </a><a class="page-link "href="/tags/page/2/"aria-label="Page 2">
-        2
-    </a><a class="page-link "href="/tags/page/2/"aria-label="Next page">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+            <article>
+    <a href="/tags/themes/">
+        <div class="article-details">
+            <h2 class="article-title">Themes</h2>
+            <footer class="article-time">
+                <time datetime='2019-03-11T00:00:00Z'>2019-03-11</time>
+            </footer>
+        </div>
     </a>
-</nav><footer class="site-footer">
+</article>
+        
+    </section><footer class="site-footer">
     <section class="copyright">
         &copy; 
         
@@ -395,6 +397,114 @@
         });
     }
 </script>
+
+<style>
+     
+    @font-face {
+    font-family: 'MapleMono-NF-CN';
+    src: url('https://jjyywhf.github.io/font/Written-Regular.ttf') format('truetype');
+    }
+  
+     
+    :root {
+      --base-font-family: 'MapleMono-NF-CN', sans-serif;
+      --code-font-family: 'MapleMono-NF-CN', consolas, monospace;
+    }
+  </style>
+
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://jjyywhf.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
         
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css" integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js" integrity="sha384-2B8pfmZZ6JlVoScJm/5hQfNS2TI/6hPqDZInzzPc8oHpN5SgeNOf4LzREO6p5YtZ" crossorigin="anonymous"></script>

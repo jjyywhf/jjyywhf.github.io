@@ -30,7 +30,7 @@
     "selector": ".menu-item-tags a",
     "text": ["点击就可以看文章的标签啦！", "点击来查看所有标签哦。"]
   }, {
-    "selector": "/archives/",
+    "selector": ".menu-item-archives a",
     "text": ["文章都分类好啦～", "点击来查看文章分类哦。"]
   }, {
     "selector": ".menu-item-archives a",
@@ -42,10 +42,10 @@
     "selector": ".menu-item-search a",
     "text": ["找不到想看的内容？搜索看看吧！", "在找什么东西呢，需要帮忙吗？"]
   }, {
-    "selector": ".article-title",
+    "selector": ".article-details",
     "text": ["快看看这里都有什么呢？"]
   }, {
-    "selector": ".site-author",
+    "selector": ".site-logo",
     "text": ["我家主人好看吗？", "这是我家主人(*´∇｀*)"]
   }, {
     "selector": ".site-state",
@@ -66,10 +66,10 @@
     "selector": ".fancybox img, img.medium-zoom-image",
     "text": ["点击图片可以放大呢！"]
   }, {
-    "selector": ".copy-btn",
+    "selector": ".copyCodeButton",
     "text": ["代码可以直接点击复制哟。"]
   }, {
-    "selector": ".highlight .table-container, .gist",
+    "selector": ".icon icon-tabler icon-tabler-brand-github",
     "text": ["GitHub！我是新手！", "PHP 是最好的语言！"]
   }, {
     "selector": "a[href^='mailto']",

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Hugo on ----jjyywhf----</title>
+        <link>https://jjyywhf.github.io/categories/hugo/</link>
+        <description>Recent content in Hugo on ----jjyywhf----</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>jjyywhf</copyright>
+        <lastBuildDate>Tue, 12 May 2026 16:51:37 +0800</lastBuildDate><atom:link href="https://jjyywhf.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>自动部署博客的命令</title>
+        <link>https://jjyywhf.github.io/p/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Sun, 11 Jan 2026 08:54:21 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;p&gt;1 在本地预览：&lt;em&gt;hugo server -D&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;2 新建文章：&lt;em&gt;hugo new content post/题目/文件名.md&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;3 添加到暂存区：&lt;em&gt;git add .&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;4 提交到本地仓库：&lt;em&gt;git commit -m &amp;ldquo;更改说明&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;5 提交到远程仓库：&lt;em&gt;git push&lt;/em&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
