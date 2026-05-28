@@ -1,12 +1,16 @@
+
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jjyywhf.github.io/post/</loc>
-    <lastmod>2026-05-12T16:51:37+08:00</lastmod>
+    <lastmod>2026-05-28T13:09:21+08:00</lastmod>
   </url><url>
-    <loc>https://jjyywhf.github.io/p/%E8%87%AA%E7%A0%94%E7%94%B5%E8%B0%83/</loc>
-    <lastmod>2026-05-12T16:51:37+08:00</lastmod>
+    <loc>https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2026-05-28T13:09:21+08:00</lastmod>
+  </url><url>
+    <loc>https://jjyywhf.github.io/p/%E7%A6%85%E5%AE%97%E7%9A%84%E5%8E%86%E5%8F%B2/</loc>
+    <lastmod>2026-05-28T13:09:21+08:00</lastmod>
   </url><url>
     <loc>https://jjyywhf.github.io/categories/</loc>
     <lastmod>2026-05-12T16:51:37+08:00</lastmod>

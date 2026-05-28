@@ -7,13 +7,308 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>jjyywhf</copyright>
-        <lastBuildDate>Tue, 12 May 2026 16:51:37 +0800</lastBuildDate><atom:link href="https://jjyywhf.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>自研电调</title>
-        <link>https://jjyywhf.github.io/p/%E8%87%AA%E7%A0%94%E7%94%B5%E8%B0%83/</link>
+        <lastBuildDate>Thu, 28 May 2026 13:09:21 +0800</lastBuildDate><atom:link href="https://jjyywhf.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Pytorch环境搭建</title>
+        <link>https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+        <pubDate>Tue, 26 May 2026 21:20:25 +0800</pubDate>
+        
+        <guid>https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;本文使用conda+VScode，搭建pytorch开发环境&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;总述核心三件套自选两件套&#34;&gt;总述：核心三件套&amp;amp;自选两件套
+&lt;/h2&gt;&lt;p&gt;整个环境当中，最关键的是三个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;python：语言，因为pytorch是用python写的&lt;/li&gt;
+&lt;li&gt;pytorch：机器学习库，由Facebook开发，全球都用&lt;/li&gt;
+&lt;li&gt;cuda：nVidia专有的工具，用GPU加速简单并行计算，比CPU快上百倍（这就是N卡nb的原因）
+&lt;strong&gt;注意：以上三个部分的版本必须搭配！！！&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;还有两个部分，取决于个人喜欢：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;anaconda：环境管理器+包管理器，用起来很方便就是有点大，推荐使用&lt;/li&gt;
+&lt;li&gt;VScode：写代码的地方，这个完全随意&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step1安装python&#34;&gt;STEP1：安装python
+&lt;/h2&gt;&lt;p&gt;这步直接跳过: )&lt;/p&gt;
+&lt;h2 id=&#34;step2用conda创建虚拟环境&#34;&gt;STEP2：用conda创建虚拟环境
+&lt;/h2&gt;&lt;h3 id=&#34;1下载anaconda&#34;&gt;（1）下载anaconda
+&lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.anaconda.com/download&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;conda官网&lt;/a&gt;
+不想注册的话，下面有一个小小的skip~
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image.png&#34;
+	width=&#34;781&#34;
+	height=&#34;541&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image_hu_8bceb5d7f511de92.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image_hu_b82e1f979ea76b3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;001&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;346px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进入第二个页面，windows系统直接点第一个
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-1.png&#34;
+	width=&#34;911&#34;
+	height=&#34;820&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-1_hu_4eecddc02b852e8b.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-1_hu_2f0f989f2db3d457.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;002&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;111&#34;
+		data-flex-basis=&#34;266px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2安装anaconda&#34;&gt;（2）安装anaconda
+&lt;/h3&gt;&lt;p&gt;这步选这三个，环境变量我们自己配。其他一路跟着引导走就行，安装的比较慢，需要多等一会。
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-2.png&#34;
+	width=&#34;737&#34;
+	height=&#34;574&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-2_hu_7b3444b9088c4d7e.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-2_hu_a28c454b8c35083c.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;003&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;308px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;安装完成后把这5个东西添加到环境变量里，这里提供相对路径作为参考，具体取决于安装位置
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-3.png&#34;
+	width=&#34;388&#34;
+	height=&#34;157&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-3_hu_3787104928794751.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-3_hu_99fc2c43989f9f2b.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;004&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;593px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;打开终端，输入&lt;em&gt;conda -V&lt;/em&gt;，如果显示出版本说明安装成功！
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-4.png&#34;
+	width=&#34;469&#34;
+	height=&#34;97&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-4_hu_a125e9ad80f8ac8f.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-4_hu_995afd7691c6c983.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;005&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;483&#34;
+		data-flex-basis=&#34;1160px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3使用conda创建并激活虚拟环境&#34;&gt;（3）使用conda创建并激活虚拟环境
+&lt;/h3&gt;&lt;p&gt;在终端中，输入&lt;em&gt;conda create -n test python=3.11 -y&lt;/em&gt;
+这个命令就是在创建一个3.11版本的名叫test的环境
+其中-n后面是名称，python=后面是版本，目前建议3.11
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-5.png&#34;
+	width=&#34;1106&#34;
+	height=&#34;1031&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-5_hu_3deff0dcf3c5d027.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-5_hu_d774c1f0a082285d.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;006&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;107&#34;
+		data-flex-basis=&#34;257px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后输入&lt;em&gt;conda activate test&lt;/em&gt;
+这个命令就是激活刚刚创建的环境，完成后命令行前面会有一个括号test
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-6.png&#34;
+	width=&#34;479&#34;
+	height=&#34;118&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-6_hu_8c87e7fc08f9afe6.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-6_hu_407d671d756a9667.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;007&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;405&#34;
+		data-flex-basis=&#34;974px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;4在虚拟环境中安装pytorch&#34;&gt;（4）在虚拟环境中安装pytorch
+&lt;/h3&gt;&lt;p&gt;首先我们要确认一下cuda的版本，在终端中输入&lt;em&gt;nvidia-smi&lt;/em&gt;
+可以在右上角看到我这里是13.2
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-8.png&#34;
+	width=&#34;1317&#34;
+	height=&#34;415&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-8_hu_e9ded3926c1dbd4d.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-8_hu_176c37b80d549006.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;008&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;317&#34;
+		data-flex-basis=&#34;761px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后来到&lt;a class=&#34;link&#34; href=&#34;https://pytorch.org/get-started/locally/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pytorch官网&lt;/a&gt;，按照实际情况选择，并把它给出的命令输入到终端
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-7.png&#34;
+	width=&#34;1430&#34;
+	height=&#34;608&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-7_hu_6e5569765fbd4cd8.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-7_hu_634dab7744ad1d00.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;009&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;235&#34;
+		data-flex-basis=&#34;564px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;等一会就安装成功了。
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-9.png&#34;
+	width=&#34;2538&#34;
+	height=&#34;1367&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-9_hu_4b58dd27497c7543.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-9_hu_62ec1b36236cffae.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;010&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;445px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;5在vscode中打开虚拟环境&#34;&gt;（5）在VScode中打开虚拟环境
+&lt;/h3&gt;&lt;p&gt;在右下角有个显示版本的位置，就是后面带（py311——我的虚拟环境名称）
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-10.png&#34;
+	width=&#34;940&#34;
+	height=&#34;125&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-10_hu_e4b6c65e4fbda377.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-10_hu_ec80e912113ddb5f.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;011&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;752&#34;
+		data-flex-basis=&#34;1804px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后选择刚才创建的就可以了
+&lt;img src=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-11.png&#34;
+	width=&#34;886&#34;
+	height=&#34;352&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-11_hu_4f6f5df455645f5c.png 480w, https://jjyywhf.github.io/p/pytorch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/image-11_hu_ce0a30b7292662b9.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;012&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;251&#34;
+		data-flex-basis=&#34;604px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;最后验证&#34;&gt;最后验证
+&lt;/h2&gt;&lt;p&gt;最后，在虚拟环境中输入下面的代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;torch&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 当前安装的 PyTorch 库的版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;__version__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 检查 CUDA 是否可用，即你的系统有 NVIDIA 的 GPU&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;torch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cuda&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_available&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果输出True，说明PyTorch成功识别到你的GPU&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>禅宗的历史</title>
+        <link>https://jjyywhf.github.io/p/%E7%A6%85%E5%AE%97%E7%9A%84%E5%8E%86%E5%8F%B2/</link>
         <pubDate>Tue, 28 Apr 2026 16:36:21 +0800</pubDate>
         
-        <guid>https://jjyywhf.github.io/p/%E8%87%AA%E7%A0%94%E7%94%B5%E8%B0%83/</guid>
-        <description></description>
+        <guid>https://jjyywhf.github.io/p/%E7%A6%85%E5%AE%97%E7%9A%84%E5%8E%86%E5%8F%B2/</guid>
+        <description>&lt;h2 id=&#34;佛教的宗派&#34;&gt;佛教的宗派
+&lt;/h2&gt;&lt;p&gt;佛教由释迦牟尼在印度创立，他去世以后，弟子们分成了两个流派：&lt;strong&gt;大众部&lt;/strong&gt;和&lt;strong&gt;上座部&lt;/strong&gt;。
+它们的区别在于，大众部在自己修行的同时也主张启发其他人觉悟，而上座部只是自己修行。后来，大众部演变成&lt;strong&gt;大乘佛教&lt;/strong&gt;，上座部演变成&lt;strong&gt;小乘佛教&lt;/strong&gt;。
+注意，小乘佛教是带有轻蔑意思的称呼，大乘是看不起小乘的。
+再后来，小乘佛教传到南亚各国，叫做&lt;strong&gt;南传佛教&lt;/strong&gt;，现在主要分部在越南、缅甸等东南亚国家。
+而大乘佛教一支传到了中国，在与中原文化融合之后，形成了&lt;strong&gt;汉传佛教&lt;/strong&gt;，其中又细分成各种宗派，如法相宗（玄奘创立）、净土宗、禅宗。
+大乘佛教的另一支传到了西藏，在与西藏本土文化融合，并受到中原文化影响（文成公主），形成了独特的&lt;strong&gt;藏传佛教&lt;/strong&gt;。
+这个关系可以用一张图来表示：
+&lt;img src=&#34;https://jjyywhf.github.io/p/%E7%A6%85%E5%AE%97%E7%9A%84%E5%8E%86%E5%8F%B2/image.png&#34;
+	width=&#34;1396&#34;
+	height=&#34;523&#34;
+	srcset=&#34;https://jjyywhf.github.io/p/%E7%A6%85%E5%AE%97%E7%9A%84%E5%8E%86%E5%8F%B2/image_hu_a1237cec7e10b9a2.png 480w, https://jjyywhf.github.io/p/%E7%A6%85%E5%AE%97%E7%9A%84%E5%8E%86%E5%8F%B2/image_hu_8a0e2c832c46a5d6.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;佛教宗派&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;266&#34;
+		data-flex-basis=&#34;640px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;禅宗的历史&#34;&gt;禅宗的历史
+&lt;/h2&gt;&lt;h3 id=&#34;禅宗的创立&#34;&gt;禅宗的创立
+&lt;/h3&gt;&lt;p&gt;根据禅宗自己的说法，禅宗是由佛祖亲自创立的。传说佛祖有一次在灵鹫山登坛说法时，拿起一朵花给众人看，正当大家都不明白什么意思的时候，
+佛祖的十大弟子之首摩诃迦叶（she四声）会心一笑，然后佛祖就说了下面这样一段话：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;吾有正法眼藏，涅槃妙心，实相无相，微妙法门，不立文字，教外别传，付嘱摩诃迦叶&lt;br&gt;
+— &lt;cite&gt;《五灯会元》 第一卷&lt;/cite&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里面由很多关键概念，大概意思如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;正法眼藏：通过彻悟而洞见的、最究竟的真理&lt;/li&gt;
+&lt;li&gt;涅槃妙心：最高智慧&lt;/li&gt;
+&lt;li&gt;实相无相：世界的真实状况和真实性质的本质是无&lt;/li&gt;
+&lt;li&gt;微妙法门：特殊途径&lt;/li&gt;
+&lt;li&gt;不立文字：不通过文字记录学说&lt;/li&gt;
+&lt;li&gt;教外别传：另立一个新的流派或者宗派&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此这段话的大意就是：我已经把最高智慧通过特殊途径传给摩诃迦叶了，从此将创立一个新的宗派（禅宗），这个宗派的特点有等等等。
+也就是在这时，摩诃迦叶成为了禅宗的初祖，佛祖同时指定他的继任者为阿难陀（也位列十大弟子）。
+顺便说一下，西游记中唐僧见到佛祖取经的时候，佛祖就是派迦叶和阿难两个人给唐僧取，所以取到无字经书也是理所当然的。&lt;/p&gt;
+&lt;p&gt;这里要说一下禅宗选择继承人（称为&lt;strong&gt;法嗣&lt;/strong&gt;）的方法，用一句话来说，就是“&lt;strong&gt;内传法印，以契证心；外付袈裟，以定宗旨&lt;/strong&gt;”。
+所谓内传法印，就是通过以心印心的方法证明修成了正果（也叫心心相印、心印）。之所以采样这种办法，是因为禅宗在传法的时候是不立文字的，只能通过心领神会的办法，学没学成大家心照不宣。
+所谓外付袈裟，就是佛祖还把木绵（注意绵的写法）袈裟和紫金钵盂两件宝物交给了摩诃迦叶，以便向众人证明接班人的身份，这就是衣钵传人的由来。&lt;/p&gt;
+&lt;h3 id=&#34;禅宗传到中国&#34;&gt;禅宗传到中国
+&lt;/h3&gt;&lt;h4 id=&#34;一菩提达摩来到中国&#34;&gt;一、菩提达摩来到中国
+&lt;/h4&gt;&lt;p&gt;菩提达摩是禅宗的第23代祖师爷，同时也是中国禅宗的初祖（以后说的都是中国禅宗），在中国的南北朝时期从广州登陆，并见了当时南梁的皇帝梁武帝。
+南梁是十分崇尚佛教的，梁武帝本人也多次舍身金陵同泰寺（就是不当皇帝当和尚），不过他信佛的目的不是弘扬佛法，而是给自己求福报。
+所以菩提达摩发现梁武帝不开窍后，就只好离开，相传他走的时候，在长江边摘了一根芦苇就飘然而去，这就是&lt;strong&gt;一苇渡江&lt;/strong&gt;。
+离开南梁后，菩提达摩去了北魏，并在嵩山的一个山洞里一动不动面壁，称为&lt;strong&gt;面壁九年&lt;/strong&gt;，九是虚数指很多年。
+达摩面壁的时候，二祖&lt;strong&gt;慧可&lt;/strong&gt;来到了他身边，他为了证明自己的诚意断臂求法。达摩传授了他四卷《楞伽经》，随后自己服毒而死，被安葬在熊耳山。
+神奇的是，达摩死后有人看到了他拿着一只草鞋向西而去，也就是&lt;strong&gt;只履西归&lt;/strong&gt;，得知这个消息后人们打开他的棺木，发现里面果然只有一只草鞋，这只草鞋供奉在少林寺，但是被偷走不知去向。&lt;/p&gt;
+&lt;h4 id=&#34;二六祖慧能的故事&#34;&gt;二、六祖慧能的故事
+&lt;/h4&gt;&lt;p&gt;先说一下五组弘忍，&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>PCB设计规范</title>
@@ -312,61 +607,61 @@ $$&lt;p&gt;
 &lt;h2 id=&#34;tables&#34;&gt;Tables
 &lt;/h2&gt;&lt;p&gt;Tables aren&amp;rsquo;t part of the core Markdown spec, but Hugo supports supports them out-of-the-box.&lt;/p&gt;
 &lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;Name&lt;/th&gt;
-          &lt;th&gt;Age&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Bob&lt;/td&gt;
-          &lt;td&gt;27&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Alice&lt;/td&gt;
-          &lt;td&gt;23&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Name&lt;/th&gt;
+					&lt;th&gt;Age&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Bob&lt;/td&gt;
+					&lt;td&gt;27&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Alice&lt;/td&gt;
+					&lt;td&gt;23&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h4 id=&#34;inline-markdown-within-tables&#34;&gt;Inline Markdown within tables
 &lt;/h4&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;Italics&lt;/th&gt;
-          &lt;th&gt;Bold&lt;/th&gt;
-          &lt;th&gt;Code&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;em&gt;italics&lt;/em&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;strong&gt;bold&lt;/strong&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;code&gt;code&lt;/code&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Italics&lt;/th&gt;
+					&lt;th&gt;Bold&lt;/th&gt;
+					&lt;th&gt;Code&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;em&gt;italics&lt;/em&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;strong&gt;bold&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;code&lt;/code&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;A&lt;/th&gt;
-          &lt;th&gt;B&lt;/th&gt;
-          &lt;th&gt;C&lt;/th&gt;
-          &lt;th&gt;D&lt;/th&gt;
-          &lt;th&gt;E&lt;/th&gt;
-          &lt;th&gt;F&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/td&gt;
-          &lt;td&gt;Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex.&lt;/td&gt;
-          &lt;td&gt;Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus&lt;/td&gt;
-          &lt;td&gt;Proin sit amet velit nec enim imperdiet vehicula.&lt;/td&gt;
-          &lt;td&gt;Ut bibendum vestibulum quam, eu egestas turpis gravida nec&lt;/td&gt;
-          &lt;td&gt;Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;A&lt;/th&gt;
+					&lt;th&gt;B&lt;/th&gt;
+					&lt;th&gt;C&lt;/th&gt;
+					&lt;th&gt;D&lt;/th&gt;
+					&lt;th&gt;E&lt;/th&gt;
+					&lt;th&gt;F&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;/td&gt;
+					&lt;td&gt;Phasellus ultricies, sapien non euismod aliquam, dui ligula tincidunt odio, at accumsan nulla sapien eget ex.&lt;/td&gt;
+					&lt;td&gt;Proin eleifend dictum ipsum, non euismod ipsum pulvinar et. Vivamus sollicitudin, quam in pulvinar aliquam, metus elit pretium purus&lt;/td&gt;
+					&lt;td&gt;Proin sit amet velit nec enim imperdiet vehicula.&lt;/td&gt;
+					&lt;td&gt;Ut bibendum vestibulum quam, eu egestas turpis gravida nec&lt;/td&gt;
+					&lt;td&gt;Sed scelerisque nec turpis vel viverra. Vivamus vitae pretium sapien&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;code-blocks&#34;&gt;Code Blocks
 &lt;/h2&gt;&lt;h4 id=&#34;code-block-with-backticks&#34;&gt;Code block with backticks
